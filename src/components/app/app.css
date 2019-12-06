@@ -1,0 +1,29 @@
+.main {
+    margin: 2rem 1rem 2rem 1rem;
+    alignment: center;
+    text-align: center;
+    max-width: 1200px;
+}
+
+.input {
+    width: auto;
+    flex-grow: 1;
+    margin-right: 3px;
+}
+
+.form {
+    margin-top: 10px;
+    margin-right: 1%;
+    padding: 7px;
+    width: 89%;
+    height: 50px;
+}
+
+.button-custom {
+    height: 50px;
+    width: 10%;
+}
+
+.textarea {
+    width: 100%;
+}
