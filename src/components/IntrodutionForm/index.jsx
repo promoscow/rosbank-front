@@ -86,6 +86,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
               id="demo-simple-select-outlined"
               labelWidth={labelWidth}
               className={classes.formField}
+              onChange={e => setFieldValue("innNumber", e.target.value)}
             >
               {innList.map(x => (
                 <MenuItem value={x}>{x}</MenuItem>
