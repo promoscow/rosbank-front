@@ -48,7 +48,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
       <br></br>
 
       <Paper className={classes.paper}>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" align="center">
           Создание новой заявки
         </Typography>
 

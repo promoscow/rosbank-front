@@ -11,7 +11,7 @@ function* sendAgentDataHandler(action) {
     console.log("Результат запроса: ", response, response.data);
     yield put(agentActions.sendAgentDataSuccess(response.data));
 
-    yield put(action.payload.history.push("/result"));
+    yield action.payload.history.push("/result");
   } catch (e) {
     console.log(e);
     yield put(agentActions.sendAgentDataFailed(e));

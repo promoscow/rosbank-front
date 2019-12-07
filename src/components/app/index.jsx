@@ -8,13 +8,19 @@ import createReduxStore from "../../workflows/reducers/index";
 
 import Router from "../Router";
 
+import theme from "../../theme";
+
+import { ThemeProvider } from "@material-ui/core/styles";
+
 const store = createReduxStore();
 store.runSaga(rootSaga);
 
 function App() {
   return (
     <Provider store={store}>
-      <Router />
+      <ThemeProvider theme={theme}>
+        <Router />
+      </ThemeProvider>
     </Provider>
   );
 }
