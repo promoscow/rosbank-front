@@ -255,7 +255,10 @@ function ResultForm({ data = {} }) {
 
   const getDivisionInfo = data => (
     <div className={classes.divisionInfoWrapper}>
-      <Typography variant="h6">{`${data.name}`}</Typography>
+      <Typography
+        variant="h6"
+        className={classes.primaryColor}
+      >{`${data.name}`}</Typography>
       <Typography variant="h7">{`Адрес : ${data.street}`}</Typography>
       <br />
       <Typography variant="h7">{`Количество сотрудников : ${data.countEmployee}`}</Typography>
@@ -281,12 +284,18 @@ function ResultForm({ data = {} }) {
         <Typography variant="h5" component="h2">
           Наиболее подходящее отделение:
         </Typography>
-        <hr></hr>
 
+        <hr></hr>
         {getDivisionInfo(mockData.resultBranchDto)}
 
         <hr></hr>
-        <Typography variant="h6">{`Ваш сотрудник: ${mockData.resultBranchDto.employees[0].name}`}</Typography>
+
+        <Typography variant="h6">
+          {`Ваш сотрудник: `}
+          <span
+            className={classes.primaryColor}
+          >{`${mockData.resultBranchDto.employees[0].name}`}</span>
+        </Typography>
 
         <br />
 
@@ -306,9 +315,18 @@ function ResultForm({ data = {} }) {
           </Map>
         </div>
 
-        <Button color="primary">
-          <a href={mapUrl}>Построить маршрут</a>
-        </Button>
+        <br />
+
+        <a href={mapUrl}>
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            className={classes.button}
+          >
+            Построить маршрут
+          </Button>
+        </a>
       </Paper>
     </Grid>
   );

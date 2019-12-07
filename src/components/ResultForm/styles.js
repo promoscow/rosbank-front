@@ -10,6 +10,12 @@ const useStyles = makeStyles(theme => ({
   },
   divisionInfoWrapper: {
     marginBottom: 20
+  },
+  primaryColor: {
+    color: "#00B2D6"
+  },
+  button: {
+    color: "white"
   }
 }));
 
