@@ -23,12 +23,18 @@ import innList from "../../data/inn";
  */
 function IntrodutionForm({ onButtonClick, isLoading }) {
   const classes = useStyles();
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
   const [state, setState] = useState({
     agentCode: "",
     phoneNumber: "",
     innNumber: "",
     comment: ""
   });
+
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
   const setFieldValue = (fieldName, value) =>
     setState({ ...state, [fieldName]: value });
@@ -71,14 +77,15 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
             onChange={e => setFieldValue("phoneNumber", e.target.value)}
           />
 
-          <FormControl>
-            <InputLabel shrink htmlFor="grouped-native-select">
+          <FormControl variant="outlined">
+            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
               Выберите ИНН из списка
             </InputLabel>
             <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              labelWidth={labelWidth}
               className={classes.formField}
-              onChange={e => setFieldValue("innNumber", e.target.value)}
-              input={<Input id="grouped-native-select" variant="outlined" />}
             >
               {innList.map(x => (
                 <MenuItem value={x}>{x}</MenuItem>
