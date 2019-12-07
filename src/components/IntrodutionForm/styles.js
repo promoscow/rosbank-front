@@ -1,12 +1,24 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-  input: {},
+  formField: {
+    marginBottom: "20px"
+  },
   paper: {
     padding: 20
   },
   fullHeight: {
     height: "100vh"
+  },
+  button: {
+    color: "white"
+  },
+  logo: {
+    width: "128px"
+  },
+  form: {
+    margin: "20px",
+    textAlign: "center"
   }
 }));
 

@@ -2,19 +2,21 @@ import React, { useState } from "react";
 
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import { Button, Grid, Typography, Box } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Typography,
+  Select,
+  MenuItem,
+  InputLabel,
+  Input,
+  FormControl
+} from "@material-ui/core";
 import useStyles from "./styles";
-import { withStyles } from "@material-ui/core/styles";
-
 import Loading from "../../components/Loading";
 
 import PropTypes from "prop-types";
-
-const StyledInput = withStyles({
-  root: {
-    marginBottom: 20
-  }
-})(TextField);
+import innList from "../../data/inn";
 
 /**
  * Форма для ввода данных
@@ -24,7 +26,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
   const [state, setState] = useState({
     agentCode: "",
     phoneNumber: "",
-    innNumber: "7707083893",
+    innNumber: "",
     comment: ""
   });
 
@@ -40,12 +42,11 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
   };
 
   return (
-    <Grid item>
-      <img src="rosbank-logo.svg" />
+    <Grid item className={classes.form}>
+      <img src="logo.png" className={classes.logo} />
 
-      <br></br>
-      <br></br>
-      <br></br>
+      <br />
+      <br />
 
       <Paper className={classes.paper}>
         <Typography variant="h5" component="h2" align="center">
@@ -55,26 +56,38 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
         <br></br>
 
         <Grid container direction="column">
-          <StyledInput
-            className={classes.input}
+          <TextField
+            className={classes.formField}
             label="Код агента"
             variant="outlined"
             required
             onChange={e => setFieldValue("agentCode", e.target.value)}
           />
-          <StyledInput
+          <TextField
+            className={classes.formField}
             label="Номер телефона"
             variant="outlined"
             required
             onChange={e => setFieldValue("phoneNumber", e.target.value)}
           />
-          <StyledInput
-            label="Номер ИНН"
-            variant="outlined"
-            required
-            onChange={e => setFieldValue("innNumber", e.target.value)}
-          />
-          <StyledInput
+
+          <FormControl>
+            <InputLabel shrink htmlFor="grouped-native-select">
+              Выберите ИНН из списка
+            </InputLabel>
+            <Select
+              className={classes.formField}
+              onChange={e => setFieldValue("innNumber", e.target.value)}
+              input={<Input id="grouped-native-select" variant="outlined" />}
+            >
+              {innList.map(x => (
+                <MenuItem value={x}>{x}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <TextField
+            className={classes.formField}
             label="Комментарий"
             multiline={true}
             variant="outlined"
@@ -86,6 +99,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
             variant="contained"
             color="primary"
             onClick={onSendAgentDataHandler}
+            className={classes.button}
           >
             {isLoading ? (
               <Loading
