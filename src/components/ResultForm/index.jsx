@@ -255,11 +255,12 @@ function ResultForm({ data = {} }) {
 
   const getDivisionInfo = data => (
     <div className={classes.divisionInfoWrapper}>
-      <Typography variant="h6">{`Название: ${data.name}`}</Typography>
+      <Typography variant="h6">{`${data.name}`}</Typography>
       <Typography variant="h7">{`Адрес : ${data.street}`}</Typography>
-
-      <Typography variant="h6">{`Количество сотрудников : ${data.countEmployee}`}</Typography>
-      <Typography variant="h6">{`Длина пути : ${formatPath(
+      <br />
+      <Typography variant="h7">{`Количество сотрудников : ${data.countEmployee}`}</Typography>
+      <br />
+      <Typography variant="h7">{`Длина пути : ${formatPath(
         data.path
       )}`}</Typography>
     </div>
@@ -268,33 +269,34 @@ function ResultForm({ data = {} }) {
   return (
     <Grid>
       <Paper className={classes.paper}>
-        <Typography variant="h5" component="h2" align="center">
+        {/* <Typography variant="h5" component="h2">
           Ближайшие отделения:
         </Typography>
+        <hr></hr> */}
 
-        <br />
+        {/* {getDivisions(mockData)} */}
 
-        {getDivisions(mockData)}
-
+        {/* <br />
+        <hr></hr> */}
         <Typography variant="h5" component="h2">
-          Самое подходящее для вас:
+          Наиболее подходящее отделение:
         </Typography>
-
-        <br />
+        <hr></hr>
 
         {getDivisionInfo(mockData.resultBranchDto)}
 
-        <Typography variant="h5">{`Ваш сотрудник: ${mockData.resultBranchDto.employees[0].name}`}</Typography>
+        <hr></hr>
+        <Typography variant="h6">{`Ваш сотрудник: ${mockData.resultBranchDto.employees[0].name}`}</Typography>
 
         <br />
 
         <div className={classes.mapWrapper}>
-          <Map center={[25, 25]} zoom={13}>
+          <Map center={[55.7390391, 37.5867524]} zoom={12}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={[25, 25]}>
+            <Marker position={[55.7390391, 37.5867524]}>
               <Popup>
                 A pretty CSS3 popup.
                 <br />
