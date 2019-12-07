@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Route, Switch, useLocation, BrowserRouter } from "react-router-dom";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Loading from "./Loading";
 
 const FormPage = React.lazy(() => import("../pages/introdution/"));
 const ResultPage = React.lazy(() => import("../pages/result/"));
@@ -23,7 +24,7 @@ function AnimatedRouter() {
   const location = useLocation();
 
   return (
-    <Suspense fallback={<div>Загрузка...</div>}>
+    <Suspense fallback={""}>
       <TransitionGroup>
         <CSSTransition
           key={location.key}
