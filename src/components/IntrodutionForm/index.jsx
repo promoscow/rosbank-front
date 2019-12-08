@@ -76,7 +76,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
             <TextValidator
               required
               validators={["matchRegexp:^\\d{1,20}$"]}
-              errorMessages={"Введите корректный код агента"}
+              errorMessages={"Код агента должен состоять из цифр"}
               value={state.agentCode}
               className={classes.formField}
               label="Код агента"
@@ -86,7 +86,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
             <TextValidator
               required
               validators={["matchRegexp:^\\d{1,20}$"]}
-              errorMessages={"Введите корректный телефон"}
+              errorMessages={"Телефон должен состоять из цифр"}
               value={state.phoneNumber}
               className={classes.formField}
               label="Номер телефона"
