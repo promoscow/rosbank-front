@@ -6,4 +6,4 @@ JS, ReactJS
 
 ### Архитектура приложения
 
-![](images/rosbank.jpg)
+![](rosbank.jpg)
