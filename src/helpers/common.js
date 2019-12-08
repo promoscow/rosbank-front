@@ -10,7 +10,7 @@ export const formatPath = number => {
   const km = splitterData[0] === "0" ? "" : splitterData[0];
   const m = splitterData[1];
 
-  return `${km} км. ${m} м.`;
+  return `${km ? km + " км." : ""} ${m} м.`;
 };
 
 /**
