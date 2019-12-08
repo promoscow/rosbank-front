@@ -6,7 +6,10 @@ const useStyles = makeStyles(theme => ({
     padding: 20
   },
   fullHeight: {
-    height: "100vh"
+    height: "100%"
+  },
+  formWrapper: {
+    width: "400px"
   }
 }));
 

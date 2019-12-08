@@ -10,10 +10,13 @@ import IntrodutionForm from "../../components/IntrodutionForm";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 
+import useStyles from "./styles";
+
 /**
  * Страница с формой для ввода данных
  */
 function IntrodutionPage({ sendAgentData, isRequestLoading, history }) {
+  const classes = useStyles();
   const onButtonClick = data => {
     sendAgentData(data, history);
   };
@@ -25,9 +28,8 @@ function IntrodutionPage({ sendAgentData, isRequestLoading, history }) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
     >
-      <Grid item>
+      <Grid item class={classes.formWrapper}>
         <IntrodutionForm
           onButtonClick={onButtonClick}
           isLoading={isRequestLoading}
