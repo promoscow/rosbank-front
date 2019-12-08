@@ -9,7 +9,6 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  Input,
   FormControl
 } from "@material-ui/core";
 import useStyles from "./styles";
@@ -49,7 +48,7 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
 
   return (
     <Grid item className={classes.form}>
-      <img src="logo.png" className={classes.logo} />
+      <img src="logo.png" className={classes.logo} alt="Логотип" />
 
       <br />
       <br />

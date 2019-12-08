@@ -1,8 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
-import PropTypes from "prop-types";
 
 import { Grid } from "@material-ui/core";
 
@@ -12,6 +11,10 @@ import ResultForm from "../../components/ResultForm";
  * Страница с результатами запроса
  */
 function ResultPage({ agentData, history }) {
+  if (!agentData) {
+    window.location.href = "/";
+  }
+
   return (
     <Grid
       container
