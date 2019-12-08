@@ -28,6 +28,7 @@ function IntrodutionPage({ sendAgentData, isRequestLoading, history }) {
       direction="column"
       alignItems="center"
       justify="center"
+      className={classes.fullHeight}
     >
       <Grid item class={classes.formWrapper}>
         <IntrodutionForm
