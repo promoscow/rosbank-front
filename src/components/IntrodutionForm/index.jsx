@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
 import {
   Button,
   Grid,
@@ -9,7 +8,8 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  FormHelperText
 } from "@material-ui/core";
 import useStyles from "./styles";
 import Loading from "../../components/Loading";
@@ -17,25 +17,28 @@ import Loading from "../../components/Loading";
 import PropTypes from "prop-types";
 import innList from "../../data/inn";
 
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
 /**
  * Форма для ввода данных
  */
 function IntrodutionForm({ onButtonClick, isLoading }) {
   const classes = useStyles();
-  const inputLabel = React.useRef(null);
+  const inputLabel = useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   const [state, setState] = useState({
     agentCode: "",
     phoneNumber: "",
     innNumber: "",
-    comment: ""
+    comment: "",
+    selectError: false
   });
 
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const setFieldValue = (fieldName, value) =>
+  const setFormValue = (fieldName, value) =>
     setState({ ...state, [fieldName]: value });
 
   const onSendAgentDataHandler = () => {
@@ -43,8 +46,16 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
   };
 
   const validate = () => {
-    return true;
+    if (state.innNumber) {
+      toggleSelectError(false);
+
+      return true;
+    }
+
+    toggleSelectError(true);
   };
+
+  const toggleSelectError = value => setState({ ...state, selectError: value });
 
   return (
     <Grid item className={classes.form}>
@@ -60,65 +71,84 @@ function IntrodutionForm({ onButtonClick, isLoading }) {
 
         <br></br>
 
-        <Grid container direction="column">
-          <TextField
-            className={classes.formField}
-            label="Код агента"
-            variant="outlined"
-            required
-            onChange={e => setFieldValue("agentCode", e.target.value)}
-          />
-          <TextField
-            className={classes.formField}
-            label="Номер телефона"
-            variant="outlined"
-            required
-            onChange={e => setFieldValue("phoneNumber", e.target.value)}
-          />
-
-          <FormControl variant="outlined">
-            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-              Выберите ИНН из списка
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-outlined-label"
-              id="demo-simple-select-outlined"
-              labelWidth={labelWidth}
+        <ValidatorForm onSubmit={onSendAgentDataHandler}>
+          <Grid container direction="column">
+            <TextValidator
+              required
+              validators={["matchRegexp:^\\d{1,20}$"]}
+              errorMessages={"Введите корректный код агента"}
+              value={state.agentCode}
               className={classes.formField}
-              onChange={e => setFieldValue("innNumber", e.target.value)}
+              label="Код агента"
+              variant="outlined"
+              onChange={e => setFormValue("agentCode", e.target.value)}
+            />
+            <TextValidator
+              required
+              validators={["matchRegexp:^\\d{1,20}$"]}
+              errorMessages={"Введите корректный телефон"}
+              value={state.phoneNumber}
+              className={classes.formField}
+              label="Номер телефона"
+              variant="outlined"
+              onChange={e => setFormValue("phoneNumber", e.target.value)}
+            />
+
+            <FormControl
+              error={state.selectError}
+              variant="outlined"
+              className={classes.formField}
             >
-              {innList.map(x => (
-                <MenuItem value={x}>{x}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <TextField
-            className={classes.formField}
-            label="Комментарий"
-            multiline={true}
-            variant="outlined"
-            onChange={e => setFieldValue("comment", e.target.value)}
-          />
-
-          <Button
-            disabled={isLoading}
-            variant="contained"
-            color="primary"
-            onClick={onSendAgentDataHandler}
-            className={classes.button}
-          >
-            {isLoading ? (
-              <Loading
-                loading={true}
-                size={20}
-                className={classes.buttonLoader}
-              />
-            ) : (
-              "Отправить"
-            )}
-          </Button>
-        </Grid>
+              <InputLabel ref={inputLabel}>Выберите ИНН из списка*</InputLabel>
+              <Select
+                error={state.selectError}
+                required
+                validators={["matchRegexp:^\\d+$"]}
+                labelWidth={labelWidth}
+                onChange={e => {
+                  setState({
+                    ...state,
+                    innNumber: e.target.value,
+                    selectError: false
+                  });
+                }}
+              >
+                {innList.map(x => (
+                  <MenuItem value={x} key={x}>
+                    {x}
+                  </MenuItem>
+                ))}
+              </Select>
+              {state.selectError && (
+                <FormHelperText>Выберите ИНН из списка</FormHelperText>
+              )}
+            </FormControl>
+            <TextValidator
+              className={classes.formField}
+              label="Комментарий"
+              multiline={true}
+              variant="outlined"
+              onChange={e => setFormValue("comment", e.target.value)}
+            />
+            <Button
+              type="submit"
+              disabled={isLoading}
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              {isLoading ? (
+                <Loading
+                  loading={true}
+                  size={20}
+                  className={classes.buttonLoader}
+                />
+              ) : (
+                "Отправить"
+              )}
+            </Button>
+          </Grid>
+        </ValidatorForm>
       </Paper>
     </Grid>
   );
