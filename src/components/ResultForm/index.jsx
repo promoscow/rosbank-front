@@ -242,7 +242,7 @@ import { formatPath, getMapUrl } from "../../helpers/common";
 function ResultForm({ data = {} }) {
   const classes = useStyles();
 
-  const position = [+data.latitude, +data.longitude];
+  const position = [+data.resultBranchDto.geoLat, +data.resultBranchDto.geoLon];
   const mapUrl = getMapUrl(
     data.latitude,
     data.longitude,
@@ -300,12 +300,12 @@ function ResultForm({ data = {} }) {
         <br />
 
         <div className={classes.mapWrapper}>
-          <Map center={[55.7390391, 37.5867524]} zoom={12}>
+          <Map center={position} zoom={12}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={[55.7390391, 37.5867524]}>
+            <Marker position={position}>
               <Popup>
                 A pretty CSS3 popup.
                 <br />

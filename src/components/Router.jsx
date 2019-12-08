@@ -32,9 +32,9 @@ function AnimatedRouter() {
           classNames={"fade"}
         >
           <Switch location={location}>
-            <Route exact path="/" component={FormPage} />
             <Route exact path="/result" component={ResultPage} />
             <Route exact path="/loading" component={StepsPage} />
+            <Route exact path="/" component={FormPage} />
 
             <Route component={() => <div>Страница не найдена</div>} />
           </Switch>

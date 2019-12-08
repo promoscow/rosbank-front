@@ -1,5 +1,7 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+
 import PropTypes from "prop-types";
 
 import { Grid } from "@material-ui/core";
@@ -9,7 +11,7 @@ import ResultForm from "../../components/ResultForm";
 /**
  * Страница с результатами запроса
  */
-function ResultPage({ data }) {
+function ResultPage({ agentData, history }) {
   return (
     <Grid
       container
@@ -20,7 +22,7 @@ function ResultPage({ data }) {
       style={{ minHeight: "100vh" }}
     >
       <Grid item>
-        <ResultForm data={data}></ResultForm>
+        <ResultForm data={agentData}></ResultForm>
       </Grid>
     </Grid>
   );
@@ -29,7 +31,7 @@ function ResultPage({ data }) {
 const mapDispatchToProps = dispatch => ({});
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.agent.result
+  agentData: state.agent.result
 });
 
 ResultPage.propTypes = {
@@ -37,4 +39,6 @@ ResultPage.propTypes = {
   isRequestLoading: PropTypes.bool
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultPage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ResultPage)
+);
