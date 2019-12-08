@@ -22,7 +22,6 @@ function ResultPage({ agentData, history }) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: "100vh" }}
     >
       <Grid item>
         <ResultForm data={agentData}></ResultForm>
